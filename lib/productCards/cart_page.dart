@@ -126,13 +126,22 @@ class _CartPageState extends State<CartPage> {
                 ],
               ),
               ElevatedButton(
-                style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(Colors.black)),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) =>  BuyNow()));
-                },
-                child: const Text('Proceed'),
-              ),
+  style: const ButtonStyle(
+    backgroundColor: MaterialStatePropertyAll(Colors.black),
+  ),
+  onPressed: () {
+    for (int i = 0; i < cartProducts.length; i++) {
+      dynamic sku = cartProducts[i][6];
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => BuyNow(sku: sku),
+        ),
+      );
+    }
+  },
+  child: const Text('Proceed'),
+),
             ],
           ),
         ),
