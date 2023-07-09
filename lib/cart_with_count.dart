@@ -20,7 +20,7 @@ class _CartWithCountState extends State<CartWithCount> {
       alignment: Alignment.center,
       children: [
         IconButton(
-            onPressed: () => Navigator.push(
+            onPressed: widget.inCartProducts == 0? null: () => Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => const CartPage())),

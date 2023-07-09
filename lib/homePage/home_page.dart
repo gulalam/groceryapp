@@ -5,7 +5,7 @@ import '../productCards/fruits.dart';
 import '../variables.dart';
 import 'category_items.dart';
 import 'description_text.dart';
-import 'discount_card.dart';
+import 'discount_cards.dart';
 import 'search_bar.dart';
 
 HomePage? homePage;
@@ -39,21 +39,24 @@ class HomePage extends State {
             )
           ],
         ),
-        body: ListView(
-          children: [
-            const DescriptionText(),
-            const SearchBar(),
-            const DiscountCard(),
-            Padding(
-              padding: EdgeInsets.all(padding),
-              child: const Text(
-                "Select Category",
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const DescriptionText(),
+              const SearchBar(),
+              const DiscountCards(),
+              Padding(
+                padding: EdgeInsets.all(padding),
+                child: const Text(
+                  "Select Category",
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-            CategoryItems(homePage: this),
-            item ?? FruitCards(homePage: this),
-          ],
+              CategoryItems(homePage: this),
+              item ?? FruitCards(homePage: this),
+            ],
+          ),
         ));
   }
 }

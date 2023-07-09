@@ -1,41 +1,51 @@
 import 'package:flutter/material.dart';
 
 import '../variables.dart';
-import 'upper_card.dart';
 
 class DiscountCard extends StatelessWidget {
+  final double width;
+  final double height;
+  final Color backgroundColor;
+  final Text mainText;
+  final Text discriptionText;
+  final ImageProvider image;
   const DiscountCard({
     super.key,
+    this.width = 130,
+    this.height = 70,
+    required this.backgroundColor,
+    required this.mainText,
+    required this.discriptionText,
+    required this.image,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        UpperCard(
-            backgroundColor: const Color.fromARGB(255, 182, 15, 15),
-            mainText: Text(
-              'Strawberry',
-              style: upperCardText,
-            ),
-            discriptionText: Text(
-              '10% off',
-              style: upperCardDescription,
-            ),
-            image: const AssetImage('assets/images/fruits/strawberry.png')),
-        UpperCard(
-            backgroundColor: Colors.orange,
-            mainText: Text(
-              'Orange',
-              style: upperCardText,
-            ),
-            discriptionText: Text(
-              '20% off',
-              style: upperCardDescription,
-            ),
-            image: const AssetImage('assets/images/fruits/orange.png')),
-      ],
+    return Padding(
+      padding: EdgeInsets.only(left: padding),
+      child: Container(
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+              color: backgroundColor, borderRadius: BorderRadius.circular(5)),
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: mainText,
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+                child: Align(
+                    alignment: Alignment.centerLeft, child: discriptionText),
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Image(width: 50, image: image),
+              ),
+            ],
+          )),
     );
   }
 }
-

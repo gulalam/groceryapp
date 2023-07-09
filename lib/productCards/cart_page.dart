@@ -4,19 +4,23 @@ import 'package:grocery_app/productCards/product_page.dart';
 import '../homePage/home_page.dart';
 
 List<List<dynamic>> cartProducts = [];
-
+CartPageState? cartPageState;
 class CartPage extends StatefulWidget {
   const CartPage({
     super.key,
   });
-
   @override
-  State<CartPage> createState() => _CartPageState();
+  State<CartPage> createState() => CartPageState();
 }
 
-class _CartPageState extends State<CartPage> {
+class CartPageState extends State<CartPage> {
   final TextStyle mainTextStyle = const TextStyle(
       fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold);
+  @override
+  void dispose() {
+    cartPageState = null;
+    super.dispose();
+  }
 
   String totalPrice() {
     double sum = 0;
@@ -30,6 +34,7 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
+    cartPageState = this;
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 221, 221, 221),
       appBar: AppBar(
@@ -126,22 +131,15 @@ class _CartPageState extends State<CartPage> {
                 ],
               ),
               ElevatedButton(
-  style: const ButtonStyle(
-    backgroundColor: MaterialStatePropertyAll(Colors.black),
-  ),
-  onPressed: () {
-    for (int i = 0; i < cartProducts.length; i++) {
-      dynamic sku = cartProducts[i][6];
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => BuyNow(sku: sku),
-        ),
-      );
-    }
-  },
-  child: const Text('Proceed'),
-),
+                style: const ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(Colors.black),
+                    ),
+                onPressed: cartProducts.isEmpty? null: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) =>  
+                  BuyNow(fromCartPage: true,)));
+                },
+                child: const Text('Proceed', style: TextStyle(color: Colors.white)),
+              ),
             ],
           ),
         ),
