@@ -248,7 +248,7 @@ class Ratting extends StatelessWidget {
     return Row(
       children: [
         for (int i = 0; i < (5 - (5 - ratting)); i++)
-          const Icon(Icons.star, color: Colors.blue),
+          const Icon(Icons.star, color: Color.fromARGB(255, 82, 59, 255)),
         for (int i = 0; i < (5 - ratting); i++) const Icon(Icons.star),
       ],
     );
