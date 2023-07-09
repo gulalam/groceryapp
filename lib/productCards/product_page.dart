@@ -187,21 +187,20 @@ class ProductPageState extends State<ProductPage> {
                       ),
                       Expanded(
                         flex: 2,
-                        child: Container(
-                          height: 35,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.green,
-                          ),
-                          alignment: Alignment.center,
-                          child: InkWell(
-                            onTap: () => Navigator.push(
+                        child: InkWell(
+                          onTap: () => Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => BuyNow(sku: widget.sku),
                               ),
                             ),
-                            child: const Text(
+                          child: Container(
+                            height: 35,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.green,
+                            ),
+                            alignment: Alignment.center,child: Text(
                               'BUY NOW',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
