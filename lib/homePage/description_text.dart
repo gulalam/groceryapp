@@ -16,7 +16,7 @@ class DescriptionText extends StatelessWidget {
           Expanded(
             flex: 5,
             child: Text(
-              'lorem ipsum dollar langa mari da kho zarwali khana nawe nawe nizamona de khoraeya',
+              'Shop fresh groceries effortlessly. Personalized recommendations, easy checkout, and convenient delivery.',
               style: descriptionText,
             ),
           ),

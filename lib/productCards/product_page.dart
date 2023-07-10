@@ -12,7 +12,7 @@ class ProductPage extends StatefulWidget {
       required this.description,
       this.discount = ' ',
       required this.sku,
-      this.ratting = 3,
+      this.ratting = 5,
       required this.index,
       required this.products,
       required this.homePage});
@@ -237,7 +237,7 @@ class Ratting extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(children: [
       for (int i = 0; i < (5 - (5 - ratting)); i++)
-        const Icon(Icons.star, color: Colors.blue),
+        const Icon(Icons.star, color: Color.fromARGB(255, 234, 255, 3)),
       for (int i = 0; i < (5 - ratting); i++) const Icon(Icons.star)
     ]);
   }
