@@ -3,18 +3,27 @@ import 'package:grocery_app/homePage/home_page.dart';
 import 'package:grocery_app/productCards/cart_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class BuyNow extends StatelessWidget {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _phoneNumberController = TextEditingController();
-  final TextEditingController _addressController = TextEditingController();
+class BuyNow extends StatefulWidget {
   final String sku;
   final bool fromProductPage;
   final bool fromCartPage;
+  bool cashOnDelivery = false;
   BuyNow(
       {super.key,
       this.fromProductPage = false,
       this.fromCartPage = false,
       this.sku = ''});
+
+  @override
+  State<BuyNow> createState() => _BuyNowState();
+}
+
+class _BuyNowState extends State<BuyNow> {
+  final TextEditingController _nameController = TextEditingController();
+
+  final TextEditingController _phoneNumberController = TextEditingController();
+
+  final TextEditingController _addressController = TextEditingController();
 
   void _sendToWhatsApp() async {
     var name = _nameController.text;
@@ -23,10 +32,10 @@ class BuyNow extends StatelessWidget {
     var business = '+14099347339';
     String message =
         'Name: $name\nPhone Number: $phoneNumber\nAddress: $address';
-    if (fromProductPage) {
-      message += '\nSku: $sku';
+    if (widget.fromProductPage) {
+      message += '\nSku: ${widget.sku}';
     }
-    if (fromCartPage) {
+    if (widget.fromCartPage) {
       String temp = '';
       for (int i = 0; i < cartProducts.length; i++) {
         temp += '\nSku: ${cartProducts[i].last}';
@@ -37,20 +46,23 @@ class BuyNow extends StatelessWidget {
     var url = 'https://wa.me/$business?text=${Uri.encodeComponent(message)}';
 
     print(url);
-    if (await canLaunch(url)) {
-      await launch(url);
+    var uri = Uri.parse(url);
+
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
     } else {
       throw 'Could not launch $url';
     }
   }
 
-  final TextStyle mainTextStyle =
-      const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black);
+  final TextStyle mainTextStyle = const TextStyle(
+      fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Buy Now'),
+          title: const Text('Checkout'),
           titleTextStyle: mainTextStyle,
           centerTitle: true,
           backgroundColor: const Color.fromARGB(255, 221, 221, 221),
@@ -133,8 +145,8 @@ class BuyNow extends StatelessWidget {
                 height: 20,
               ),
               Row(
-                children: const [
-                  Expanded(
+                children: [
+                  const Expanded(
                     child: MyButton(
                         width: 150,
                         color: Colors.white,
@@ -142,17 +154,29 @@ class BuyNow extends StatelessWidget {
                             image: AssetImage(
                                 'assets/images/buttons/debitcard.png'))),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Expanded(
-                    child: MyButton(
-                        width: 150,
-                        color: Colors.white,
-                        widget: Image(
-                          image: AssetImage('assets/images/buttons/cod.png'),
-                          width: 100,
-                        )),
+                    child: InkWell(
+                      onTap: () {
+                        if (widget.cashOnDelivery) {
+                          widget.cashOnDelivery = false;
+                        } else {
+                          widget.cashOnDelivery = true;
+                        }
+                        setState(() {});
+                      },
+                      child: MyButton(
+                          width: 150,
+                          color: widget.cashOnDelivery
+                              ? Colors.black
+                              : Colors.white,
+                          widget: const Image(
+                            image: AssetImage('assets/images/buttons/cod.png'),
+                            width: 100,
+                          )),
+                    ),
                   ),
                 ],
               ),
@@ -166,7 +190,7 @@ class BuyNow extends StatelessWidget {
                       return;
                     }
                     _sendToWhatsApp();
-                    if(homePage != null) {
+                    if (homePage != null) {
                       homePage!.setState(() {});
                     }
                     Navigator.pop(context);

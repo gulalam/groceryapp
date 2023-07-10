@@ -38,7 +38,7 @@ class CartPageState extends State<CartPage> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 221, 221, 221),
       appBar: AppBar(
-        title: const Text('Cart Page'),
+        title: const Text('My Cart'),
         titleTextStyle: mainTextStyle,
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 221, 221, 221),
