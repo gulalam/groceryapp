@@ -48,7 +48,7 @@ class ProductPageState extends State<ProductPage> {
     productPage = this;
     return Scaffold(
         appBar: AppBar(
-          title: Text('Product Page', style: mainTextStyle),
+          title: Text('Fresh', style: mainTextStyle),
           centerTitle: true,
           elevation: 0,
           backgroundColor: Colors.white,
