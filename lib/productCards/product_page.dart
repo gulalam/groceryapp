@@ -119,12 +119,6 @@ class ProductPageState extends State<ProductPage> {
                       children: [
                         Expanded(
                           child: Text(widget.products[widget.index][2], style: mainTextStyle)
-                        //     child: ProductPrice(
-                        //   quantity: 1,
-                        //   index: widget.index,
-                        //   mainTextStyle: mainTextStyle,
-                        //   products: widget.products,
-                        // )
                         ),
                       ],
                     ),
