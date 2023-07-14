@@ -38,7 +38,7 @@ class _BuyNowState extends State<BuyNow> {
     if (widget.fromCartPage) {
       String temp = '';
       for (int i = 0; i < cartProducts.length; i++) {
-        temp += '\nSku: ${cartProducts[i].last}';
+        temp += '\nSKU: ${cartProducts[i].last}';
       }
       message += temp;
       cartProducts.clear();
